@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+}
+
 .text-h1 {
   @apply text-[22px] font-bold leading-[32px] tracking-[0.5px];
 }
