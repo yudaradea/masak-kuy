@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Alpine Plugins -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- Alpine JS -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- Swiper -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- material icon -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="src/output.css" />
+    <title>Cooking Kuy!</title>
+  </head>
+  <body class="bg-form lg:bg-body">
+    <section id="signinPage" class="h-[100vh] max-w-[480px] mx-auto bg-form">
+      <div class="container min-h-screen flex flex-col justify-center">
+        <div>
+          <div class="text-center">
+            <h1 class="text-h1 text-mainText">Welcome Back!</h1>
+            <p class="mt-2 text-p2 text-secondaryText">
+              Please enter your account here
+            </p>
+          </div>
+          <div class="pt-10">
+            <form action="" id="login" class="">
+              <div
+                class="flex items-center py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
+              >
+                <div class="mr-[10px] w-6 h-6 flex items-center justify-center">
+                  <span
+                    class="material-symbols-outlined text-mainText text-2xl"
+                  >
+                    mail
+                  </span>
+                </div>
+                <div class="grow">
+                  <input
+                    type="email"
+                    class="w-full text-[15px] font-semibold text-mainText pb-[4px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
+                    placeholder="Email Address"
+                    name="email"
+                    id="email"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div
+                x-data="{show: false}"
+                class="flex items-center mt-5 py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
+              >
+                <div class="mr-[10px] w-6 h-6 flex items-center justify-center">
+                  <span
+                    class="material-symbols-outlined text-mainText text-2xl"
+                  >
+                    lock
+                  </span>
+                </div>
+                <div class="grow">
+                  <input
+                    :type="show ? 'text' : 'password'"
+                    class="text-[15px] w-full font-semibold text-mainText pb-[2px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
+                    placeholder="Password"
+                    name="password"
+                    id="password"
+                    required
+                  />
+                </div>
+                <div
+                  class="ms-[10px] w-6 h-6 flex items-center justify-end cursor-pointer"
+                  @click="show = !show"
+                  :class="{'hidden' : show}"
+                >
+                  <span
+                    class="material-symbols-outlined text-mainText text-2xl"
+                  >
+                    visibility
+                  </span>
+                </div>
+                <div
+                  class="ms-[10px] w-6 h-6 flex items-center justify-end cursor-pointer"
+                  @click="show = !show"
+                  :class="{'hidden' : !show}"
+                >
+                  <span
+                    class="material-symbols-outlined text-mainText text-2xl"
+                  >
+                    visibility_off
+                  </span>
+                </div>
+              </div>
+              <div class="mt-6 text-center">
+                <a
+                  href="forgotpassword.html"
+                  class="text-p2 text-secondaryText hover:text-mainText transition-colors duration-200"
+                  >Forgot password?</a
+                >
+              </div>
+              <!-- change a to button -->
+              <div class="flex flex-col justify-center gap-6 mt-14">
+                <a
+                  type="submit"
+                  href="index.html"
+                  class="flex items-center justify-center py-3 bg-primary rounded-full text-center"
+                >
+                  <p class="text-white font-bold pb-1">Login</p>
+                </a>
+                <p class="text-center text-p2 text-secondaryText">
+                  Or continue with
+                </p>
+                <a
+                  href=""
+                  class="flex items-center justify-center py-3 bg-secondary rounded-full text-center"
+                >
+                  <p class="text-white font-bold pb-1">
+                    <i class="fa-brands fa-google me-1"></i> Google
+                  </p>
+                </a>
+                <p class="text-center text-p2 text-mainText">
+                  Don't have any account?
+                  <span class="text-primary"
+                    ><a href="register.html">Sign Up</a></span
+                  >
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Swiperjs -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  </body>
+</html>
