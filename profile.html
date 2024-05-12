@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Alpine Plugins -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- Alpine puglin xtrap -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- Alpine JS -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- Swiper -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- material icon -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="src/output.css" />
+    <title>Cooking Kuy!</title>
+  </head>
+  <body class="bg-form md:bg-body">
+    <!-- Menu -->
+    <div class="fixed bottom-0 z-10 max-w-[480px] right-0 left-0 mx-auto">
+      <div class="relative">
+        <!-- nav lin -->
+        <div class="bg-white rounded-t-3xl">
+          <div class="container pt-3 pb-4">
+            <ul class="grid grid-cols-5 place-items-center gap-10">
+              <li>
+                <a
+                  href="index.html"
+                  class="flex flex-col justify-center items-center text-[#9FA5C0]"
+                >
+                  <div class="text-xl">
+                    <i class="fa-solid fa-house"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold">Home</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a
+                  href=""
+                  class="flex flex-col justify-center items-center text-[#9FA5C0]"
+                >
+                  <div class="text-xl">
+                    <i class="fa-solid fa-pen"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold">Upload</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a
+                  href=""
+                  class="flex flex-col justify-end items-center text-[#9FA5C0]"
+                >
+                  <div class="-mt-8">
+                    <i
+                      class="fa-solid fa-book bg-primary py-[18px] px-[20px] rounded-full text-white shadow-sm"
+                    ></i>
+                  </div>
+                  <div class="mt-[8px]">
+                    <p class="text-xs font-semibold">Recipe</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a
+                  href=""
+                  class="flex flex-col justify-center items-center text-[#9FA5C0]"
+                >
+                  <div class="text-xl">
+                    <i class="fa-solid fa-bell"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold">Notification</p>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  onclick="return false;"
+                  class="flex flex-col justify-center items-center text-primary"
+                >
+                  <div class="text-xl">
+                    <i class="fa-solid fa-user"></i>
+                  </div>
+                  <div>
+                    <p class="text-xs font-semibold">Profile</p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end Menu -->
+
+    <section
+      class="pb-8 pt-6 max-w-[480px] mx-auto bg-form"
+      id="home"
+      x-data="{editProfile : false}"
+      @body-scroll="document.body.style.overflowY = editProfile ? 'hidden' : ''"
+    >
+      <!-- Top -->
+      <div class="border-b-8 border-body pb-8">
+        <div class="container">
+          <div class="flex justify-end">
+            <i
+              id="logout"
+              class="fa-solid fa-right-from-bracket text-mainText text-2xl cursor-pointer"
+            ></i>
+          </div>
+          <div class="flex flex-col items-center gap-4 pt-3">
+            <div class="w-[100px] h-[100px]">
+              <img
+                id="avatarUser"
+                src=""
+                alt=""
+                class="w-full h-full rounded-full"
+              />
+            </div>
+            <div class="flex items-center gap-1">
+              <h2 class="text[#3E5481] text-h2" id="nameUser"></h2>
+              <div
+                class="ms-1 cursor-pointer"
+                @click="editProfile = true; $dispatch('body-scroll', {})"
+              >
+                <i class="fa-solid fa-pen-to-square"></i>
+              </div>
+            </div>
+            <div class="flex justify-around gap-14 md:gap-16 pt-1">
+              <div class="flex flex-col justify-center items-center">
+                <h2 class="text-h2 text-[#3E5481]">32</h2>
+                <p class="text-s text-[#9FA5C0]">Recipes</p>
+              </div>
+              <div class="flex flex-col justify-center items-center">
+                <h2 class="text-h2 text-[#3E5481]">725</h2>
+                <p class="text-s text-[#9FA5C0]">Following</p>
+              </div>
+              <div class="flex flex-col justify-center items-center">
+                <h2 class="text-h2 text-[#3E5481]">1240</h2>
+                <p class="text-s text-[#9FA5C0]">Followers</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End top -->
+
+      <!-- Content section -->
+      <div x-data="{openTab: 1 }">
+        <div class="flex pt-6 pb-4 border-b-2 border-body relative">
+          <div
+            class="absolute -bottom-[2px] w-[50%] bg-primary h-1 rounded-full"
+            x-show="openTab === 1"
+            x-transition:enter="transition ease duration-500 transform"
+            x-transition:enter-start="opacity-0 -translate-x-full"
+            x-transition:enter-end="opacity-100 translate-x-0"
+          ></div>
+          <div
+            class="absolute -bottom-[2px] right-0 w-[50%] bg-primary h-1 rounded-full"
+            x-show="openTab === 2"
+            x-transition:enter="transition ease duration-500 transform"
+            x-transition:enter-start="opacity-0 translate-x-full"
+            x-transition:enter-end="opacity-100 -translate-x-0"
+          ></div>
+          <div class="container">
+            <div class="flex">
+              <div class="w-1/2 cursor-pointer" @click="openTab = 1">
+                <h2
+                  class="text-[15px] text-center"
+                  :class="openTab === 1 ? 'text-[#3E5481]' : 'text-[#9FA5C0]'"
+                >
+                  My Recipes
+                </h2>
+              </div>
+              <div class="w-1/2 cursor-pointer" @click="openTab = 2">
+                <h2
+                  class="text-[15px] text-center"
+                  :class="openTab === 2 ? 'text-[#3E5481]' : 'text-[#9FA5C0]'"
+                >
+                  Liked
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- tab 1 my recipes -->
+        <div
+          x-show="openTab === 1"
+          x-transition:enter="transition ease duration-500 transform"
+          x-transition:enter-start="opacity-0 -translate-x-full"
+          x-transition:enter-end="opacity-100 translate-x-0"
+          class="container pt-6 pb-20 h-full"
+        >
+          <div
+            class="grid grid-cols-2 gap-x-4 md:gap-x-0 gap-y-6 place-items-center"
+            id="content"
+          >
+            <!-- Content 1 -->
+            <div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-1.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Pancacke</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 2 -->
+            <div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-2.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Salad</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 3 -->
+            <div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-3.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Kari Kuri</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 4 -->
+            <div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-4.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Salad Afrika</h1>
+                </a>
+
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 5 -->
+            <div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-5.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Nugget Tuna</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 6 -->
+            <div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-6.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Sop Ayam Cimahi</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 7 -->
+            <div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-7.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Rendang Gulali</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 8 -->
+            <div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-8.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Soto Betawi</h1>
+                </a>
+
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-center pt-10">
+            <div
+              class="text-center py-3 px-8 rounded-full bg-primary font-semibold text-white shadow-sm"
+            >
+              <p>Load More</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- tab 2 my recipes -->
+        <div
+          x-show="openTab === 2"
+          x-transition:enter="transition ease duration-500 transform"
+          x-transition:enter-start="opacity-0 translate-x-full"
+          x-transition:enter-end="opacity-100 -translate-x-0"
+          class="container pt-7 pb-20 h-full"
+        >
+          <div
+            class="grid grid-cols-2 gap-x-4 md:gap-x-0 gap-y-10 place-items-center"
+            id="content"
+          >
+            <!-- Content 1 -->
+            <div>
+              <div class="flex items-center gap-2">
+                <div class="w-[30px] h-[30px]">
+                  <img
+                    src="img/content-profil-1.png"
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <p class="text-s text-mainText">Calum Lewis</p>
+              </div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-8.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Pancacke</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 2 -->
+            <div>
+              <div class="flex items-center gap-2">
+                <div class="w-[30px] h-[30px]">
+                  <img
+                    src="img/content-profil-2.png"
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <p class="text-s text-mainText">Elif Sonas</p>
+              </div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-7.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Salad</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 3 -->
+            <div>
+              <div class="flex items-center gap-2">
+                <div class="w-[30px] h-[30px]">
+                  <img
+                    src="img/content-profil-3.png"
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <p class="text-s text-mainText">Elena Shelby</p>
+              </div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-6.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Kari Kuri</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 4 -->
+            <div>
+              <div class="flex items-center gap-2">
+                <div class="w-[30px] h-[30px]">
+                  <img
+                    src="img/content-profil-4.png"
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <p class="text-s text-mainText">Jhon Priyadi</p>
+              </div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-5.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Salad Afrika</h1>
+                </a>
+
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 5 -->
+            <div>
+              <div class="flex items-center gap-2">
+                <div class="w-[30px] h-[30px]">
+                  <img
+                    src="img/content-profil-1.png"
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <p class="text-s text-mainText">Calum Lewis</p>
+              </div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-5.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Nugget Tuna</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 6 -->
+            <div>
+              <div class="flex items-center gap-2">
+                <div class="w-[30px] h-[30px]">
+                  <img
+                    src="img/content-profil-2.png"
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <p class="text-s text-mainText">Elif Sonas</p>
+              </div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-6.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Sop Ayam Cimahi</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 7 -->
+            <div>
+              <div class="flex items-center gap-2">
+                <div class="w-[30px] h-[30px]">
+                  <img
+                    src="img/content-profil-3.png"
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <p class="text-s text-mainText">Elena Shelby</p>
+              </div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-7.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Rendang Gulali</h1>
+                </a>
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+
+            <!-- Content 8 -->
+            <div>
+              <div class="flex items-center gap-2">
+                <div class="w-[30px] h-[30px]">
+                  <img
+                    src="img/content-profil-4.png"
+                    alt=""
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <p class="text-s text-mainText">Jhon Priyadi</p>
+              </div>
+              <div class="w-[150px] h-[150px] pt-4 relative">
+                <a href="single-post.html">
+                  <img
+                    src="img/content-cook-8.png"
+                    alt=""
+                    class="w-full h-full object-cover rounded-2xl"
+                  />
+                </a>
+                <div
+                  class="text-white text-xs pt-[5px] pb-[6px] px-2 rounded-lg absolute top-8 right-2 backdrop-blur-sm bg-white/30"
+                >
+                  <i class="fa-regular fa-heart"></i>
+                </div>
+              </div>
+              <div class="pt-4">
+                <a href="single-post.html">
+                  <h1 class="text-h2 text-[#3E5481]">Soto Betawi</h1>
+                </a>
+
+                <p class="pt-1 text-s text-secondaryText">Food > 60 mins</p>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-center pt-10">
+            <div
+              class="text-center py-3 px-8 rounded-full bg-primary font-semibold text-white shadow-sm"
+            >
+              <p>Load More</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end Content -->
+
+      <!-- Modal edit -->
+      <div
+        x-show="editProfile"
+        x-transition:enter="transition ease duration-500 transform"
+        x-transition:enter-start="scale-0"
+        x-transition:enter-end="scale-100"
+        x-transition:leave="transition ease duration-500 transform"
+        x-transition:leave-start="scale-100"
+        x-transition:leave-end="scale-0"
+        class="fixed inset-0 h-full w-full max-w-[480px] mx-auto bg-form z-20 overflow-auto pb-8"
+      >
+        <!-- top -->
+        <div class="pt-6">
+          <div class="container">
+            <div
+              class="text-mainText cursor-pointer"
+              @click="editProfile = false; $dispatch('body-scroll', {})"
+            >
+              <i
+                class="fa-solid fa-chevron-left text-xs py-2 px-3 bg-mainText text-white rounded-full"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Sugestion -->
+        <div class="container pt-6">
+          <div class="text-center">
+            <h1 class="text-h1 text-mainText">Edit your profile</h1>
+          </div>
+          <form action="" id="login" class="pt-10">
+            <!-- Name -->
+            <div class="space-y-6">
+              <div
+                class="flex items-center py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
+              >
+                <div class="mr-[10px] w-6 h-6 flex items-center justify-center">
+                  <i
+                    class="fa-regular fa-address-card text-lg text-mainText"
+                  ></i>
+                </div>
+                <div class="grow">
+                  <input
+                    type="text"
+                    class="w-full text-[15px] font-semibold text-mainText pb-[4px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
+                    value="Yuda Aradea"
+                    name="editName"
+                    id="editName"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div
+                class="flex items-center py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
+              >
+                <div class="mr-[10px] w-6 h-6 flex items-center justify-center">
+                  <span
+                    class="material-symbols-outlined text-mainText text-2xl"
+                  >
+                    mail
+                  </span>
+                </div>
+                <div class="grow">
+                  <input
+                    type="email"
+                    class="w-full text-[15px] font-semibold text-mainText pb-[4px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
+                    value="yudaradea@gmail.com"
+                    name="editEmail"
+                    id="editEmail"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Foto -->
+              <div
+                class="flex items-center py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
+              >
+                <div class="mr-[10px] w-6 h-6 flex items-center justify-center">
+                  <i class="fa-regular fa-image text-lg text-mainText"></i>
+                </div>
+                <div class="grow">
+                  <input
+                    type="text"
+                    class="w-full text-[15px] font-semibold text-mainText pb-[4px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
+                    value="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    name="editAvatar"
+                    id="editAvatar"
+                    required
+                  />
+                </div>
+              </div>
+
+              <!-- Password -->
+              <div
+                x-data="{show: false}"
+                class="flex items-center py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
+              >
+                <div class="mr-[10px] w-6 h-6 flex items-center justify-center">
+                  <span
+                    class="material-symbols-outlined text-mainText text-2xl"
+                  >
+                    lock
+                  </span>
+                </div>
+                <div class="grow">
+                  <input
+                    type="password"
+                    class="text-[15px] w-full font-semibold text-mainText pb-[2px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
+                    value="********"
+                    name="editPassword"
+                    id="editPassword"
+                    min="6"
+                    required
+                    :type="show ? 'text' : 'password'"
+                    onkeyup="checkPasswordLength(this.value)"
+                  />
+                </div>
+                <div
+                  class="ms-[10px] w-6 h-6 flex items-center justify-end cursor-pointer"
+                  @click="show = !show"
+                  :class="{'hidden' : show}"
+                >
+                  <span
+                    class="material-symbols-outlined text-mainText text-2xl"
+                  >
+                    visibility
+                  </span>
+                </div>
+                <div
+                  class="ms-[10px] w-6 h-6 flex items-center justify-end cursor-pointer"
+                  @click="show = !show"
+                  :class="{'hidden' : !show}"
+                >
+                  <span
+                    class="material-symbols-outlined text-mainText text-2xl"
+                  >
+                    visibility_off
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-6">
+              <p class="text-p1 text-[#3E5481]">Your Password Must Contain :</p>
+              <p class="mt-4 text-p2 text-secondaryText" id="validText">
+                <span
+                  id="validIcon"
+                  class="material-symbols-outlined text-[12px] me-1 text-white p-1 rounded-full bg-secondaryText"
+                >
+                  done
+                </span>
+                At least 6 character
+              </p>
+              <p class="mt-4 text-p2 text-secondaryText" id="validTextNumber">
+                <span
+                  id="validIconNumber"
+                  class="material-symbols-outlined text-[12px] text-white me-1 p-1 rounded-full bg-secondaryText"
+                >
+                  done
+                </span>
+                Contains a number
+              </p>
+            </div>
+
+            <div class="flex flex-col justify-center gap-5 mt-12">
+              <div
+                class="flex items-center justify-center py-3 bg-primary rounded-full text-center"
+              >
+                <p class="text-white font-bold pb-1">Submit</p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- user js -->
+    <script src="js/User.js"></script>
+    <!-- Profile js -->
+    <script src="js/profile.js"></script>
+    <!-- Swiperjs -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  </body>
+</html>

@@ -1,3 +1,7 @@
+if (localStorage.getItem("loginUser") !== null) {
+  window.location.assign("../index.html");
+}
+
 function checkPasswordLength(password) {
   const validText = document.getElementById("validText");
   const validIcon = document.getElementById("validIcon");
@@ -24,3 +28,46 @@ function checkPasswordLength(password) {
     validIconNumber.classList.add("bg-secondaryText");
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const userForm = document.getElementById("userForm");
+  const userManager = new User();
+
+  userForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const password = document.getElementById("password").value;
+    const encryptPassword = btoa(password);
+
+    const userData = {
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      avatar: document.getElementById("avatar").value,
+      password: encryptPassword,
+    };
+
+    const numbers = /[0-9]/g;
+    const addPasswordNumber = userData.password.match(numbers);
+
+    if (addPasswordNumber == null) {
+      alert("password harus menggunakan number");
+    } else if (userData.password.length < 6) {
+      alert("password minimal 8 karakter");
+    } else {
+      const result = userManager.saveUser(userData);
+
+      if (result.emailExists) {
+        alert("Email sudah terdaftar!");
+        document.getElementById("email").value = "";
+        document.getElementById("email").focus();
+      }
+
+      if (result.success) {
+        alert("Registrasi berhasil, silakan login");
+        return (window.location.href = "../signin.html");
+      } else {
+        alert("Registrasi gagal");
+      }
+    }
+  });
+});

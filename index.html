@@ -9,6 +9,11 @@
       defer
       src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"
     ></script>
+    <!-- Alpine puglin xtrap -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"
+    ></script>
     <!-- Alpine JS -->
     <script
       defer
@@ -43,9 +48,13 @@
     <link rel="stylesheet" href="src/output.css" />
     <title>Cooking Kuy!</title>
   </head>
-  <body class="bg-form md:bg-body">
+  <body
+    class="bg-form md:bg-body"
+    x-data="{search : false}"
+    @body-scroll="document.body.style.overflowY = search ? 'hidden' : ''"
+  >
     <!-- Menu -->
-    <div class="fixed bottom-0 z-40 max-w-[480px] right-0 left-0 mx-auto">
+    <div class="fixed bottom-0 z-10 max-w-[480px] right-0 left-0 mx-auto">
       <div class="relative">
         <!-- nav lin -->
         <div class="bg-white rounded-t-3xl">
@@ -53,7 +62,8 @@
             <ul class="grid grid-cols-5 place-items-center gap-10">
               <li>
                 <a
-                  href="index.html"
+                  href="#"
+                  onclick="return false;"
                   class="flex flex-col justify-center items-center text-primary"
                 >
                   <div class="text-xl">
@@ -107,7 +117,8 @@
               </li>
               <li>
                 <a
-                  href="signin.html"
+                  id="profileLink"
+                  href=""
                   class="flex flex-col justify-center items-center text-[#9FA5C0]"
                 >
                   <div class="text-xl">
@@ -125,12 +136,13 @@
     </div>
     <!-- end Menu -->
 
-    <section class="py-10 max-w-[480px] mx-auto bg-form" id="home">
+    <section class="py-8 max-w-[480px] mx-auto bg-form" id="home">
       <!-- Top -->
       <div class="border-b-8 border-body pb-4">
         <div class="container pb-4">
           <div
             class="flex gap-[10px] items-center py-3 px-6 bg-body rounded-full"
+            @click="search = true; $dispatch('body-scroll', {})"
           >
             <div>
               <i
@@ -160,7 +172,7 @@
       <!-- End top -->
 
       <!-- Content section -->
-      <div class="container pt-6 pb-20">
+      <div class="container pt-6 pb-20 h-full">
         <div
           class="grid grid-cols-2 gap-x-4 md:gap-x-0 gap-y-10 place-items-center"
           id="content"
@@ -450,6 +462,331 @@
       <!-- Content -->
     </section>
 
+    <!-- Modal search -->
+    <div
+      x-show="search"
+      x-trap="search"
+      x-data="{filter:false}"
+      x-transition:enter="transition ease duration-500 transform"
+      x-transition:enter-start="scale-0"
+      x-transition:enter-end="scale-100"
+      x-transition:leave="transition ease duration-700 transform"
+      x-transition:leave-start="opacity-100 -translate-x-0"
+      x-transition:leave-end="opacity-0 translate-x-full"
+      class="fixed inset-0 h-full w-full max-w-[480px] mx-auto bg-form z-20"
+    >
+      <!-- top -->
+      <div class="py-8 border-b-8 border-body">
+        <div class="container">
+          <div class="flex items-center justify-around">
+            <div
+              class="text-mainText cursor-pointer"
+              @click="search=false; $dispatch('body-scroll', {})"
+            >
+              <i class="fa-solid fa-chevron-left text-lg"></i>
+            </div>
+            <div
+              class="flex items-center py-3 px-6 gap-3 bg-body rounded-full w-[220px]"
+            >
+              <div class="text-[#9FA5C0]">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  id="search"
+                  class="w-[110px] text-[15px] caret-primary text-mainText font-semibold focus:outline-none placeholder:text-secondaryText bg-transparent"
+                  onkeyup="checkSearchLenght(this.value)"
+                />
+              </div>
+              <div class="hidden cursor-pointer" id="hapusSearch">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clip-path="url(#clip0_187_663)">
+                    <path
+                      d="M12 2C10.0222 2 8.08879 2.58649 6.4443 3.6853C4.79981 4.78412 3.51809 6.3459 2.76121 8.17317C2.00433 10.0004 1.8063 12.0111 2.19215 13.9509C2.578 15.8907 3.53041 17.6725 4.92894 19.0711C6.32746 20.4696 8.10929 21.422 10.0491 21.8079C11.9889 22.1937 13.9996 21.9957 15.8268 21.2388C17.6541 20.4819 19.2159 19.2002 20.3147 17.5557C21.4135 15.9112 22 13.9778 22 12C22 10.6868 21.7413 9.38642 21.2388 8.17317C20.7363 6.95991 19.9997 5.85752 19.0711 4.92893C18.1425 4.00035 17.0401 3.26375 15.8268 2.7612C14.6136 2.25866 13.3132 2 12 2ZM14.71 13.29C14.8037 13.383 14.8781 13.4936 14.9289 13.6154C14.9797 13.7373 15.0058 13.868 15.0058 14C15.0058 14.132 14.9797 14.2627 14.9289 14.3846C14.8781 14.5064 14.8037 14.617 14.71 14.71C14.617 14.8037 14.5064 14.8781 14.3846 14.9289C14.2627 14.9797 14.132 15.0058 14 15.0058C13.868 15.0058 13.7373 14.9797 13.6154 14.9289C13.4936 14.8781 13.383 14.8037 13.29 14.71L12 13.41L10.71 14.71C10.617 14.8037 10.5064 14.8781 10.3846 14.9289C10.2627 14.9797 10.132 15.0058 10 15.0058C9.86799 15.0058 9.73729 14.9797 9.61543 14.9289C9.49357 14.8781 9.38297 14.8037 9.29 14.71C9.19628 14.617 9.12188 14.5064 9.07111 14.3846C9.02034 14.2627 8.99421 14.132 8.99421 14C8.99421 13.868 9.02034 13.7373 9.07111 13.6154C9.12188 13.4936 9.19628 13.383 9.29 13.29L10.59 12L9.29 10.71C9.1017 10.5217 8.99591 10.2663 8.99591 10C8.99591 9.7337 9.1017 9.4783 9.29 9.29C9.47831 9.1017 9.7337 8.99591 10 8.99591C10.2663 8.99591 10.5217 9.1017 10.71 9.29L12 10.59L13.29 9.29C13.4783 9.1017 13.7337 8.99591 14 8.99591C14.2663 8.99591 14.5217 9.1017 14.71 9.29C14.8983 9.4783 15.0041 9.7337 15.0041 10C15.0041 10.2663 14.8983 10.5217 14.71 10.71L13.41 12L14.71 13.29Z"
+                      fill="#2E3E5C"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_187_663">
+                      <rect width="24" height="24" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+            <div class="text-mainText cursor-pointer" @click="filter=true">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M8.87774 6.37856C8.87774 8.24523 7.33886 9.75821 5.43887 9.75821C3.53999 9.75821 2 8.24523 2 6.37856C2 4.51298 3.53999 3 5.43887 3C7.33886 3 8.87774 4.51298 8.87774 6.37856ZM20.4933 4.89833C21.3244 4.89833 22 5.56203 22 6.37856C22 7.19618 21.3244 7.85989 20.4933 7.85989H13.9178C13.0856 7.85989 12.4101 7.19618 12.4101 6.37856C12.4101 5.56203 13.0856 4.89833 13.9178 4.89833H20.4933ZM3.50777 15.958H10.0833C10.9155 15.958 11.5911 16.6217 11.5911 17.4393C11.5911 18.2558 10.9155 18.9206 10.0833 18.9206H3.50777C2.67555 18.9206 2 18.2558 2 17.4393C2 16.6217 2.67555 15.958 3.50777 15.958ZM18.5611 20.7778C20.4611 20.7778 22 19.2648 22 17.3992C22 15.5325 20.4611 14.0196 18.5611 14.0196C16.6623 14.0196 15.1223 15.5325 15.1223 17.3992C15.1223 19.2648 16.6623 20.7778 18.5611 20.7778Z"
+                  fill="#2E3E5C"
+                />
+                <circle cx="20" cy="4" r="3.5" fill="#007BA7" stroke="white" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Searhc -->
+      <div class="py-8 border-b-8 border-body">
+        <div class="container space-y-6">
+          <!-- search recent -->
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <div class="mt-[3px]">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M21.2498 12.0005C21.2498 17.1095 17.1088 21.2505 11.9998 21.2505C6.89076 21.2505 2.74976 17.1095 2.74976 12.0005C2.74976 6.89149 6.89076 2.75049 11.9998 2.75049C17.1088 2.75049 21.2498 6.89149 21.2498 12.0005Z"
+                    stroke="#9FA5C0"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M15.4314 14.9429L11.6614 12.6939V7.84686"
+                    stroke="#9FA5C0"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  class="text-p1 text-[#3E5481] focus:outline-none bg-transparent"
+                  readonly
+                  value="Pancacke"
+                  id="recentSearch"
+                />
+              </div>
+            </div>
+            <div>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.25176 15.8244C6.38272 15.8367 6.51481 15.823 6.64046 15.7841C6.76611 15.7452 6.88286 15.6819 6.98401 15.5978C7.08517 15.5138 7.16874 15.4105 7.22994 15.2941C7.29115 15.1777 7.32879 15.0503 7.3407 14.9194L7.85689 9.26957L16.2432 17.6559C16.4307 17.8434 16.6851 17.9487 16.9503 17.9487C17.2155 17.9487 17.4699 17.8434 17.6574 17.6559C17.8449 17.4683 17.9503 17.214 17.9503 16.9487C17.9503 16.6835 17.8449 16.4292 17.6574 16.2416L9.2711 7.85535L14.9209 7.33917C15.0518 7.32709 15.1791 7.28935 15.2954 7.2281C15.4118 7.16684 15.5149 7.08326 15.599 6.98215C15.683 6.88103 15.7463 6.76435 15.7853 6.63876C15.8242 6.51318 15.8381 6.38115 15.826 6.25022C15.8139 6.11929 15.7762 5.99202 15.7149 5.87568C15.6537 5.75933 15.5701 5.65619 15.469 5.57215C15.3678 5.4881 15.2512 5.42479 15.1256 5.38584C15 5.34689 14.868 5.33305 14.737 5.34513L6.95886 6.05223L6.78916 6.09466L6.64774 6.13709C6.4207 6.23769 6.23922 6.41917 6.13862 6.6462L6.09619 6.78762L6.05377 6.95733L5.34666 14.7355C5.33442 14.8665 5.34814 14.9986 5.38702 15.1242C5.42591 15.2499 5.48921 15.3666 5.57328 15.4678C5.65736 15.5689 5.76056 15.6525 5.87699 15.7137C5.99341 15.7749 6.12076 15.8125 6.25176 15.8244Z"
+                  fill="#9FA5C0"
+                />
+              </svg>
+            </div>
+          </div>
+          <!-- search recent -->
+          <div class="flex justify-between items-center">
+            <div class="flex items-center gap-2">
+              <div class="mt-[3px]">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M21.2498 12.0005C21.2498 17.1095 17.1088 21.2505 11.9998 21.2505C6.89076 21.2505 2.74976 17.1095 2.74976 12.0005C2.74976 6.89149 6.89076 2.75049 11.9998 2.75049C17.1088 2.75049 21.2498 6.89149 21.2498 12.0005Z"
+                    stroke="#9FA5C0"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M15.4314 14.9429L11.6614 12.6939V7.84686"
+                    stroke="#9FA5C0"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  class="text-p1 text-[#3E5481] focus:outline-none bg-transparent"
+                  readonly
+                  value="Risol mayo"
+                  id="recentSearch"
+                />
+              </div>
+            </div>
+            <div>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M6.25176 15.8244C6.38272 15.8367 6.51481 15.823 6.64046 15.7841C6.76611 15.7452 6.88286 15.6819 6.98401 15.5978C7.08517 15.5138 7.16874 15.4105 7.22994 15.2941C7.29115 15.1777 7.32879 15.0503 7.3407 14.9194L7.85689 9.26957L16.2432 17.6559C16.4307 17.8434 16.6851 17.9487 16.9503 17.9487C17.2155 17.9487 17.4699 17.8434 17.6574 17.6559C17.8449 17.4683 17.9503 17.214 17.9503 16.9487C17.9503 16.6835 17.8449 16.4292 17.6574 16.2416L9.2711 7.85535L14.9209 7.33917C15.0518 7.32709 15.1791 7.28935 15.2954 7.2281C15.4118 7.16684 15.5149 7.08326 15.599 6.98215C15.683 6.88103 15.7463 6.76435 15.7853 6.63876C15.8242 6.51318 15.8381 6.38115 15.826 6.25022C15.8139 6.11929 15.7762 5.99202 15.7149 5.87568C15.6537 5.75933 15.5701 5.65619 15.469 5.57215C15.3678 5.4881 15.2512 5.42479 15.1256 5.38584C15 5.34689 14.868 5.33305 14.737 5.34513L6.95886 6.05223L6.78916 6.09466L6.64774 6.13709C6.4207 6.23769 6.23922 6.41917 6.13862 6.6462L6.09619 6.78762L6.05377 6.95733L5.34666 14.7355C5.33442 14.8665 5.34814 14.9986 5.38702 15.1242C5.42591 15.2499 5.48921 15.3666 5.57328 15.4678C5.65736 15.5689 5.76056 15.6525 5.87699 15.7137C5.99341 15.7749 6.12076 15.8125 6.25176 15.8244Z"
+                  fill="#9FA5C0"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search Sugestion -->
+      <div class="py-8">
+        <div class="container">
+          <h2 class="text-h2 text-[#] pb-7">Search suggestions</h2>
+          <div class="flex flex-wrap gap-4">
+            <!-- sguest 1 -->
+            <div class="bg-body py-3 px-6 rounded-full">
+              <p class="text-[15px] text-[#3E5481] font-semibold">
+                rendang balado
+              </p>
+            </div>
+
+            <!-- sguest 2 -->
+            <div class="bg-body py-3 px-6 rounded-full">
+              <p class="text-[15px] text-[#3E5481] font-semibold">sandwich</p>
+            </div>
+
+            <!-- sguest 3 -->
+            <div class="bg-body py-3 px-6 rounded-full">
+              <p class="text-[15px] text-[#3E5481] font-semibold">sushi</p>
+            </div>
+
+            <!-- sguest 4 -->
+            <div class="bg-body py-3 px-6 rounded-full">
+              <p class="text-[15px] text-[#3E5481] font-semibold">
+                semur jengkol
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal filter -->
+      <div
+        x-show="filter"
+        class="fixed inset-0 z-50 overflow-y-auto"
+        aria-labelledby="modal-title"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div
+          x-cloak
+          x-show="filter"
+          x-transition:enter="transition ease-out duration-300 transform"
+          x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100"
+          x-transition:leave="transition ease-in duration-200 transform"
+          x-transition:leave-start="opacity-100"
+          x-transition:leave-end="opacity-0"
+          class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-40"
+          aria-hidden="true"
+        ></div>
+
+        <div
+          x-cloak
+          x-show="filter"
+          x-transition:enter="transition ease duration-700 transform"
+          x-transition:enter-start="opacity-0 translate-y-full"
+          x-transition:enter-end="opacity-100 -translate-y-0"
+          x-transition:leave="transition ease duration-700 transform"
+          x-transition:leave-start="opacity-100 -translate-y-0"
+          x-transition:leave-end="opacity-0 translate-y-full"
+          class="overflow-auto max-w-[480px] transition-all transform bg-white rounded-t-[40px] rounded-b-lg shadow-xl h-[70vh] mx-auto bottom-0 absolute left-0 right-0"
+        >
+          <div class="container py-8">
+            <h2 class="text-center text-h2 text-[#3E5481]">Add a Filter</h2>
+            <!-- category -->
+            <div class="pt-8">
+              <h1 class="text-[#3E5481] text-h2">Category</h1>
+              <div class="pt-4 flex items-center gap-3">
+                <button class="inline-block py-3 px-6 bg-primary rounded-full">
+                  <p class="text-white text-[15px] font-bold">All</p>
+                </button>
+                <button
+                  class="inline-block py-3 px-6 bg-transparent border-2 border-outline rounded-full"
+                >
+                  <p class="text-secondaryText text-[15px] font-bold">Food</p>
+                </button>
+                <button
+                  class="inline-block py-3 px-6 bg-transparent border-2 border-outline rounded-full"
+                >
+                  <p class="text-secondaryText text-[15px] font-bold">Drink</p>
+                </button>
+              </div>
+            </div>
+            <!-- cooking duration -->
+            <div class="pt-8">
+              <h2 class="text-[#3E5481] text-h2">
+                Cooking Duration
+                <span class="tetx-p1 text-[#9FA5C0]">(in minutes)</span>
+                <div class="pt-4">
+                  <div class="flex justify-between">
+                    <p class="text-[15px] text-[#9FA5C0]"><10</p>
+                    <p class="text-[15px] text-[#9FA5C0]">30</p>
+                    <p class="text-[15px] text-[#9FA5C0]">>60</p>
+                  </div>
+                  <input
+                    class="range accent-primary w-full cursor-pointer mt-5 bg-[#F4F5F7] appearance-none rounded-full h-2"
+                    type="range"
+                    value="0"
+                    min="0"
+                    max="60"
+                    onChange="rangeSlide(this.value)"
+                    onmousemove="rangeSlide(this.value)"
+                  />
+                </div>
+              </h2>
+            </div>
+            <!-- buton -->
+            <div class="pt-12 flex items-center gap-4">
+              <button
+                @click="filter=false"
+                class="w-1/2 py-4 bg-form rounded-full text-mainText text-[15px] font-bold"
+              >
+                Cancel
+              </button>
+              <button
+                class="w-1/2 py-4 bg-primary rounded-full text-white text-[15px] font-bold"
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- home js -->
+    <script src="js/home.js"></script>
+    <!-- Search Management -->
+    <script src="js/search-management.js"></script>
     <!-- Swiperjs -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </body>

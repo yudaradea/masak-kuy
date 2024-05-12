@@ -43,9 +43,9 @@
     <link rel="stylesheet" href="src/output.css" />
     <title>Cooking Kuy!</title>
   </head>
-  <body class="bg-form md:bg-body">
+  <body class="bg-form lg:bg-body">
     <section id="signinPage" class="h-[100vh] max-w-[480px] mx-auto bg-form">
-      <div class="container min-h-screen flex flex-col justify-center">
+      <div class="container flex h-full flex-col justify-center">
         <div>
           <div class="text-center">
             <h1 class="text-h1 text-mainText">Welcome</h1>
@@ -54,74 +54,126 @@
             </p>
           </div>
           <div class="pt-10">
-            <form action="" id="login" class="">
-              <div
-                class="flex items-center py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
-              >
-                <div class="mr-[10px] w-6 h-6 flex items-center justify-center">
-                  <span
-                    class="material-symbols-outlined text-mainText text-2xl"
+            <form action="" id="userForm" class="">
+              <div class="space-y-6">
+                <!-- Name -->
+                <div
+                  class="flex items-center py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
+                >
+                  <div
+                    class="mr-[10px] w-6 h-6 flex items-center justify-center"
                   >
-                    mail
-                  </span>
+                    <i
+                      class="fa-regular fa-address-card text-lg text-mainText"
+                    ></i>
+                  </div>
+                  <div class="grow">
+                    <input
+                      type="text"
+                      class="w-full text-[15px] font-semibold text-mainText pb-[4px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
+                      placeholder="Your Name"
+                      name="name"
+                      id="name"
+                      required
+                    />
+                  </div>
                 </div>
-                <div class="grow">
-                  <input
-                    type="email"
-                    class="w-full text-[15px] font-semibold text-mainText pb-[4px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
-                    placeholder="Email Address"
-                    name="email"
-                    id="email"
-                    required
-                  />
-                </div>
-              </div>
 
-              <div
-                x-data="{show: false}"
-                class="flex items-center mt-5 py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
-              >
-                <div class="mr-[10px] w-6 h-6 flex items-center justify-center">
-                  <span
-                    class="material-symbols-outlined text-mainText text-2xl"
-                  >
-                    lock
-                  </span>
-                </div>
-                <div class="grow">
-                  <input
-                    type="password"
-                    class="text-[15px] w-full font-semibold text-mainText pb-[2px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
-                    placeholder="Password"
-                    name="password"
-                    id="password"
-                    min="8"
-                    required
-                    :type="show ? 'text' : 'password'"
-                    onkeyup="checkPasswordLength(this.value)"
-                  />
-                </div>
+                <!-- Email -->
                 <div
-                  class="ms-[10px] w-6 h-6 flex items-center justify-end cursor-pointer"
-                  @click="show = !show"
-                  :class="{'hidden' : show}"
+                  class="flex items-center py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
                 >
-                  <span
-                    class="material-symbols-outlined text-mainText text-2xl"
+                  <div
+                    class="mr-[10px] w-6 h-6 flex items-center justify-center"
                   >
-                    visibility
-                  </span>
+                    <span
+                      class="material-symbols-outlined text-mainText text-2xl"
+                    >
+                      mail
+                    </span>
+                  </div>
+                  <div class="grow">
+                    <input
+                      type="email"
+                      class="w-full text-[15px] font-semibold text-mainText pb-[4px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
+                      placeholder="Your Email"
+                      name="email"
+                      id="email"
+                      required
+                    />
+                  </div>
                 </div>
+
+                <!-- Foto -->
                 <div
-                  class="ms-[10px] w-6 h-6 flex items-center justify-end cursor-pointer"
-                  @click="show = !show"
-                  :class="{'hidden' : !show}"
+                  class="flex items-center py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
                 >
-                  <span
-                    class="material-symbols-outlined text-mainText text-2xl"
+                  <div
+                    class="mr-[10px] w-6 h-6 flex items-center justify-center"
                   >
-                    visibility_off
-                  </span>
+                    <i class="fa-regular fa-image text-lg text-mainText"></i>
+                  </div>
+                  <div class="grow">
+                    <input
+                      type="text"
+                      class="w-full text-[15px] font-semibold text-mainText pb-[4px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
+                      placeholder="Link For Avatar"
+                      name="avatar"
+                      id="avatar"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Password -->
+                <div
+                  x-data="{show: false}"
+                  class="flex items-center py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
+                >
+                  <div
+                    class="mr-[10px] w-6 h-6 flex items-center justify-center"
+                  >
+                    <span
+                      class="material-symbols-outlined text-mainText text-2xl"
+                    >
+                      lock
+                    </span>
+                  </div>
+                  <div class="grow">
+                    <input
+                      type="password"
+                      class="text-[15px] w-full font-semibold text-mainText pb-[2px] placeholder:text-secondaryText focus:outline-none placeholder:font-normal"
+                      placeholder="Your Password"
+                      name="password"
+                      id="password"
+                      min="6"
+                      required
+                      :type="show ? 'text' : 'password'"
+                      onkeyup="checkPasswordLength(this.value)"
+                    />
+                  </div>
+                  <div
+                    class="ms-[10px] w-6 h-6 flex items-center justify-end cursor-pointer"
+                    @click="show = !show"
+                    :class="{'hidden' : show}"
+                  >
+                    <span
+                      class="material-symbols-outlined text-mainText text-2xl"
+                    >
+                      visibility
+                    </span>
+                  </div>
+                  <div
+                    class="ms-[10px] w-6 h-6 flex items-center justify-end cursor-pointer"
+                    @click="show = !show"
+                    :class="{'hidden' : !show}"
+                  >
+                    <span
+                      class="material-symbols-outlined text-mainText text-2xl"
+                    >
+                      visibility_off
+                    </span>
+                  </div>
                 </div>
               </div>
               <div class="mt-6">
@@ -149,11 +201,12 @@
               </div>
 
               <div class="flex flex-col justify-center gap-5 mt-12">
-                <div
+                <button
+                  type="submit"
                   class="flex items-center justify-center py-3 bg-primary rounded-full text-center"
                 >
-                  <p class="text-white font-bold pb-1">Login</p>
-                </div>
+                  <p class="text-white font-bold pb-1">Register</p>
+                </button>
 
                 <p class="text-center text-p2 text-mainText">
                   Have already account?
@@ -168,6 +221,8 @@
       </div>
     </section>
 
+    <!-- User Manage js -->
+    <script src="js/User.js"></script>
     <!-- add-acount js -->
     <script src="js/add-acount.js"></script>
   </body>

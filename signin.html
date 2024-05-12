@@ -45,7 +45,7 @@
   </head>
   <body class="bg-form lg:bg-body">
     <section id="signinPage" class="h-[100vh] max-w-[480px] mx-auto bg-form">
-      <div class="container min-h-screen flex flex-col justify-center">
+      <div class="container h-full flex flex-col justify-center">
         <div>
           <div class="text-center">
             <h1 class="text-h1 text-mainText">Welcome Back!</h1>
@@ -54,7 +54,7 @@
             </p>
           </div>
           <div class="pt-10">
-            <form action="" id="login" class="">
+            <form action="" id="userForm" class="">
               <div
                 class="flex items-center py-3 px-5 border border-outline bg-white rounded-full focus-within:ring focus-within:ring-primary"
               >
@@ -130,13 +130,12 @@
               </div>
               <!-- change a to button -->
               <div class="flex flex-col justify-center gap-6 mt-14">
-                <a
+                <button
                   type="submit"
-                  href="index.html"
                   class="flex items-center justify-center py-3 bg-primary rounded-full text-center"
                 >
                   <p class="text-white font-bold pb-1">Login</p>
-                </a>
+                </button>
                 <p class="text-center text-p2 text-secondaryText">
                   Or continue with
                 </p>
@@ -161,6 +160,10 @@
       </div>
     </section>
 
+    <!-- User management js -->
+    <script src="js/User.js"></script>
+    <!-- signin js -->
+    <script src="js/signin.js"></script>
     <!-- Swiperjs -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   </body>
